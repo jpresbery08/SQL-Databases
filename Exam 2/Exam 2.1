@@ -1,0 +1,26 @@
+---2. Using the university schema, write a SQL query to find the names and ID of each History student whose name begins with the letter ‘D’ and who has not taken at least five Music courses.
+
+						
+						
+						
+---3. Using the university schema, write a SQL query to find the number of students in each section.  The result columns should appear in the order “courseid, secid, year, semester, num”.  You do not need to output sections with 0 students.
+	
+	SELECT COUNT(id) AS num, course_id, sec_id, year, semester
+	FROM student JOIN takes using(id)
+	HAVING course_id, sec_id, year, semester, num
+	
+
+---4. Using the university schema, write a SQL query to find the ID and name of each instructor who has never taught a course at the university.  Do this using no subqueries and no set operations (use an outer join).
+
+	SELECT id, name, course_id
+	FROM instructor NATURAL LEFT OUTER JOIN teaches
+	WHERE course_id is null;
+	
+---5 Outer join expressions can be computed without using the OUTER JOIN operation.  Rewrite the following queries without using the OUTER JOIN expression.
+
+--SELECT * FROM instructor NATURAL LEFT OUTER JOIN teaches
+	SELECT *
+	FROM instructor JOIN teaches ON instructor.id = teaches.id
+--SELECT * FROM instructor NATURAL FULL OUTER JOIN teaches
+	SELECT *
+	FROM instructor NATURAL JOIN teaches
